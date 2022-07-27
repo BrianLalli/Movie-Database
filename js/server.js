@@ -18,21 +18,74 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the movieReviews_db database.`)
 );
-// ROUTE 1 SHOW MOVIE
-// ROUTE 2 UPDATES MOVIE
+
+// Query database
+// ROUTE 1 READ ALL MOVIES
+app.get('/api/movies', (req, res) => {
+  const sql = `SELECT id, movie_name AS title FROM movies`;
+  
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+       return;
+    }
+    res.json({
+      message: 'success',
+      data: rows
+    });
+  });
+});
+
 // ROUTE 3 ADD REVIEW
+app.get('/api/add-review', (req, res) => {
+  const sql = `ADD id AS movie_review AS review FROM movies`;
+  
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+       return;
+    }
+    res.json({
+      message: 'success',
+      data: rows
+    });
+  });
+});
+
+// ROUTE 3 UPDATES MOVIE
+app.get('/api/update-review', (req, res) => {
+  const sql = `UPDATE id, movie_name AS title FROM movies`;
+  
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+       return;
+    }
+    res.json({
+      message: 'success',
+      data: rows
+    });
+  });
+});
 // ROUTE 4 DELETES MOVIE AND REVIEW BASED ON ID
 // Hardcoded query: DELETE FROM course_names WHERE id = 3;
-// Query database
-db.query(`DELETE FROM movieReviews WHERE id = ?`, 3, (err, result) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(result);
-});
-db.query('SELECT * FROM movieReviews', function (err, results) {
-    console.log(results);
+app.get('/api/movies', (req, res) => {
+  const sql = `DELETE id, movie_name AS title FROM movies`;
+  
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+       return;
+    }
+    res.json({
+      message: 'success',
+      data: rows
+    });
   });
+});
+
+
+
 app.use((req, res) => {
   res.status(404).end();
 });
