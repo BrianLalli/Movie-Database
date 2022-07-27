@@ -36,9 +36,9 @@ app.get('/api/movies', (req, res) => {
   });
 });
 
-// ROUTE 3 ADD REVIEW
-app.get('/api/add-review', (req, res) => {
-  const sql = `ADD id AS movie_review AS review FROM movies`;
+// ROUTE 2 ADD MOVIE
+app.get('/api/add-movie', (req, res) => {
+  const sql = `ADD id AS movie_name AS name FROM movies`;
   
   db.query(sql, (err, rows) => {
     if (err) {
@@ -52,9 +52,9 @@ app.get('/api/add-review', (req, res) => {
   });
 });
 
-// ROUTE 3 UPDATES MOVIE
+// ROUTE 3 UPDATES REVIEW
 app.get('/api/update-review', (req, res) => {
-  const sql = `UPDATE id, movie_name AS title FROM movies`;
+  const sql = `UPDATE id, movie_review AS review FROM movies`;
   
   db.query(sql, (err, rows) => {
     if (err) {
@@ -69,7 +69,7 @@ app.get('/api/update-review', (req, res) => {
 });
 // ROUTE 4 DELETES MOVIE AND REVIEW BASED ON ID
 // Hardcoded query: DELETE FROM course_names WHERE id = 3;
-app.get('/api/movies', (req, res) => {
+app.get('/api/movie/:id', (req, res) => {
   const sql = `DELETE id, movie_name AS title FROM movies`;
   
   db.query(sql, (err, rows) => {
